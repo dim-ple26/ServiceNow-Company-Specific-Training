@@ -1,3 +1,4 @@
+package day2_linkedlist;
 import java.util.Scanner;
 
 class Node {

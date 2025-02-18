@@ -1,0 +1,74 @@
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Scanner;
+
+class cycleingraph {
+    List<Integer>adj[];
+    int V;
+    static int count = 0;
+    
+    Iamneo(int V) {
+        this.V = V;
+        this.adj = new LinkedList[V];
+        for(int i = 0; i < V; i ++) {
+            adj[i] = new LinkedList<Integer>();
+        }
+    }
+    
+    public void addEdge(int start, int end) {
+        adj[start].add(end);
+        adj[end].add(start);
+    }
+    
+    public boolean depthFirstSearch(boolean visited[], int curr, int parent) {
+        count ++; 
+        visited[curr] = true;
+        
+        Iterator<Integer> it = adj[curr].iterator();
+        while(it.hasNext()) {
+            int temp = it.next();
+            if(!visited[temp]) {
+                if(depthFirstSearch(visited, temp, curr)) {
+                    return true;
+                }
+            }
+            else if(parent != temp) {
+                return true;
+            }
+        }
+        return false;
+            
+    }
+    
+    public void displayElements() {
+        for(int i = 0; i < V; i ++) {
+            Iterator<Integer> it = adj[i].iterator();
+            System.out.print(i + " -> ");
+            while(it.hasNext()) {
+                int temp = it.next();
+                System.out.print(temp + " ");
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int V = in.nextInt();
+        int E = in.nextInt();
+        
+        cycleingraph obj = new cycleingraph(V);
+        boolean visited[] = new boolean[V];
+        
+        for(int i = 0; i < E; i ++) {
+            int start = in.nextInt();
+            int end = in.nextInt();
+            obj.addEdge(start, end);
+            visited[i] = false;
+        }
+        obj.displayElements();
+        boolean ans = obj.depthFirstSearch(visited, 0, -1);
+        System.out.println("\n" + count + " " + ans);
+    }
+}
