@@ -1,4 +1,4 @@
-package Recursion;
+package RecursionAndBacktracking;
 import java.util.*;
 public class permutationofstring {
     static void perm(String str,String ans){
