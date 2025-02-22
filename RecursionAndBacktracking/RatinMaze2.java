@@ -15,7 +15,12 @@ public class RatinMaze2 {
     public static void print(int sr,int sc,int er,int ec,String s){
 
         if(sr>er || sc>ec) return;
-        if(sr==er && sc ==ec) return 1;
+        if(sr==er && sc ==ec){
+            System.out.println(s);
+            return;
+        }
+        print(sr+1, sc, er, ec, s+"D");
+        print(sr, sc+1, er, ec, s+"R");
 
     }
 
@@ -24,7 +29,8 @@ public class RatinMaze2 {
     public static void main(String[] args) {
         int rows =3;
         int col=3;
-        int count = maze(1,1,rows,col);
+        print(1, 1, rows, col,"");
+       // int count = maze(1,1,rows,col);
         //System.out.println("Total no. of ways to get out of maze is "+count);
     }
     
